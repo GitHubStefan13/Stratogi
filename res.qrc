@@ -1,0 +1,76 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="main.qml">res/qml/main.qml</file>
+        <file alias="MainMenu.qml">res/qml/MainMenu.qml</file>
+        <file alias="MainMenu.qml">res/qml/MainMenu.qml</file>
+        <file alias="CustomDrawer.qml">res/qml/CustomDrawer.qml</file>
+        <file alias="ChessBoard.qml">res/qml/ChessBoard.qml</file>
+        <file alias="Background.qml">res/qml/Background.qml</file>
+        <file alias="ShogiBoard.qml">res/qml/ShogiBoard.qml</file>
+        <file alias="ShogiTableTop.qml">res/qml/ShogiTableTop.qml</file>
+        <file alias="ShogiTableBottom.qml">res/qml/ShogiTableBottom.qml</file>
+        <file alias="Cell.qml">res/qml/Cell.qml</file>
+        <file alias="Button.qml">res/qml/Button.qml</file>
+        <file alias="ShogiMain.qml">res/qml/ShogiMain.qml</file>
+        <file alias="ChessMain.qml">res/qml/ChessMain.qml</file>
+        <file alias="TransformDialog.qml">res/qml/TransformDialog.qml</file>
+        <file alias="PromotionDialog.qml">res/qml/PromotionDialog.qml</file>
+        <file alias="DrawGameDialog.qml">res/qml/DrawGameDialog.qml</file>
+        <file alias="CheckMateDialog.qml">res/qml/CheckMateDialog.qml</file>
+        <file alias="EngineSettingDialog.qml">res/qml/EngineSettingDialog.qml</file>
+        <file alias="UndoBtn.qml">res/qml/UndoBtn.qml</file>
+        <file alias="Chess_Background.png">img/chess/chess_background.png</file>
+        <file alias="C_B_Bishop.png">img/chess/bishop-black.png</file>
+        <file alias="C_W_Bishop.png">img/chess/bishop-white.png</file>
+        <file alias="C_B_Rook.png">img/chess/rook-black.png</file>
+        <file alias="C_W_Rook.png">img/chess/rook-white.png</file>
+        <file alias="C_B_King.png">img/chess/king-black.png</file>
+        <file alias="C_W_King.png">img/chess/king-white.png</file>
+        <file alias="C_B_Knight.png">img/chess/knight-black.png</file>
+        <file alias="C_W_Knight.png">img/chess/knight-white.png</file>
+        <file alias="C_B_Pawn.png">img/chess/pawn-black.png</file>
+        <file alias="C_W_Pawn.png">img/chess/pawn-white.png</file>
+        <file alias="C_B_Queen.png">img/chess/queen-black.png</file>
+        <file alias="C_W_Queen.png">img/chess/queen-white.png</file>
+        <file alias="S_B_Bishop.png">img/shogi/bishop-black.png</file>
+        <file alias="S_W_Bishop.png">img/shogi/bishop-white.png</file>
+        <file alias="S_B_Rook.png">img/shogi/rook-black.png</file>
+        <file alias="S_W_Rook.png">img/shogi/rook-white.png</file>
+        <file alias="S_B_King.png">img/shogi/king-black.png</file>
+        <file alias="S_W_King.png">img/shogi/king-white.png</file>
+        <file alias="S_B_Knight.png">img/shogi/knight-black.png</file>
+        <file alias="S_W_Knight.png">img/shogi/knight-white.png</file>
+        <file alias="S_B_Pawn.png">img/shogi/pawn-black.png</file>
+        <file alias="S_W_Pawn.png">img/shogi/pawn-white.png</file>
+        <file alias="S_B_sGeneral.png">img/shogi/sGeneral-black.png</file>
+        <file alias="S_W_sGeneral.png">img/shogi/sGeneral-white.png</file>
+        <file alias="S_B_gGeneral.png">img/shogi/gGeneral-black.png</file>
+        <file alias="S_W_gGeneral.png">img/shogi/gGeneral-white.png</file>
+        <file alias="S_B_Lance.png">img/shogi/lance-black.png</file>
+        <file alias="S_W_Lance.png">img/shogi/lance-white.png</file>
+        <file alias="S_B_P_Pawn.png">img/shogi/promoted-pawn-black.png</file>
+        <file alias="S_W_P_Pawn.png">img/shogi/promoted-pawn-white.png</file>
+        <file alias="S_B_P_Lance.png">img/shogi/promoted-lance-black.png</file>
+        <file alias="S_W_P_Lance.png">img/shogi/promoted-lance-white.png</file>
+        <file alias="S_B_P_Knight.png">img/shogi/promoted-knight-black.png</file>
+        <file alias="S_W_P_Knight.png">img/shogi/promoted-knight-white.png</file>
+        <file alias="S_B_P_sGeneral.png">img/shogi/promoted-sGeneral-black.png</file>
+        <file alias="S_W_P_sGeneral.png">img/shogi/promoted-sGeneral-white.png</file>
+        <file alias="S_B_P_Bishop.png">img/shogi/dragon-black.png</file>
+        <file alias="S_W_P_Bishop.png">img/shogi/dragon-white.png</file>
+        <file alias="S_B_P_Rook.png">img/shogi/horse-black.png</file>
+        <file alias="S_W_P_Rook.png">img/shogi/horse-white.png</file>
+        <file alias="Undo.png">img/undo.png</file>
+        <file alias="Shogi_Background.png">img/shogi/shogi_background.png</file>
+        <file alias="Undo_disabled.png">img/undo_disabled.png</file>
+        <file alias="Undo_clicked.png">img/undo_clicked.png</file>
+        <file>img/empty.png</file>
+        <file>img/icon16x16.png</file>
+        <file>img/icon22x22.png</file>
+        <file>img/icon32x32.png</file>
+        <file>img/icon48x48.png</file>
+        <file>img/icon64x64.png</file>
+        <file>img/icon128x128.png</file>
+        <file>img/icon256x256.png</file>        
+    </qresource>    
+</RCC>

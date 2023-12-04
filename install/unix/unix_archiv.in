@@ -1,0 +1,19 @@
+#!bin/bash
+mkdir -p $${PACKAGE_DIR}/lib
+
+$$FILES
+$$QT_LIBS
+
+rsync -aq --ignore-existing --exclude='*.debug' $$[QT_INSTALL_PLUGINS] $${PACKAGE_DIR}
+rsync -aq --ignore-existing $$[QT_INSTALL_TRANSLATIONS] $${PACKAGE_DIR}
+rsync -aq --ignore-existing $$[QT_INSTALL_QML] $${PACKAGE_DIR}
+
+cp $$CONFIG_FILE $${PACKAGE_DIR}/qt.conf
+
+$$DELETE_OLD_FILES
+$$COPY_INSTALLER
+
+cd $${PACKAGE_DIR}
+tar --exclude='unix_archiv.sh' --exclude=$${INSTALLER_NAME}.sh -czvf $${INSTALLER_NAME}.tar.gz * >/dev/null 2>&1
+
+cat $${INSTALLER_NAME}.tar.gz >> $${INSTALLER_NAME}.sh

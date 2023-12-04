@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0.0
+Name=PiControlServer - Control your Raspberry Pi remotely
+GenericName=PiControlServer
+Comment=PiControlServer - Control your Raspberry Pi remotely
+Exec=~/PiControlServer/PiControlServer
+TryExec=~/PiControlServer/PiControlServer
+Icon=~/PiControlServer/PiControlServer-icon.png
+Terminal=false
+Type=Application
+Categories=Application;Client;Utility
+MimeType=application/x-PiControlServer-item;
+X-KDE-StartupNotify=false
+X-DBUS-StartupType=none
