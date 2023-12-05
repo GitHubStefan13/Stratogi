@@ -85,6 +85,7 @@ class ShogiGame Q_DECL_FINAL : public AbstractGame
 
     void newGame() override;
     void onEngineResult(QString result) override;
+    void onEngineError(QString error, AbstractEngine::EngineErrorGrade errorGrade) override;
     void turnEnded() override;
     void undo() override;
 

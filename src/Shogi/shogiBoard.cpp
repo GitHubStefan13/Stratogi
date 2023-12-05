@@ -197,11 +197,6 @@ void ShogiBoard::newGame()
   static_cast<AbstractFigure*>(m_figures.at(38).data())->setColor(AbstractFigure::FigureColor::White);
   static_cast<AbstractFigure*>(m_figures.at(39).data())->setColor(AbstractFigure::FigureColor::White);
 
-  // Reset Transformation
-  for(int i = 0; i < m_figures.count(); i++){
-    static_cast<AbstractFigure*>(m_figures.at(i).data())->transform(false);
-  }
-
   m_board = {
     {
       m_figures.at(0).data(),

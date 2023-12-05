@@ -42,6 +42,15 @@ namespace Stratogi {
 
   void AbstractBoard::move(uint32 fromX, uint32 fromY, uint32 toX, uint32 toY, bool testMove)
   {
+    if(fromX > _rowSize ||
+       fromY > _columnSize ||
+       toX > _rowSize ||
+       toY > _columnSize)
+    {
+      qDebug() << "Invalid move, position is outside the Board";
+      return;
+    }
+
     AbstractFigure *from = m_board[fromY][fromX];
 
     if(from)
@@ -69,10 +78,11 @@ namespace Stratogi {
 
   AbstractFigure *AbstractBoard::figure(uint32 index) const
   {
-    int cFigures = m_figures.size();
-    return (index < cFigures ? (m_figures.at(index).data())
-                             : (m_transformed.at(index - cFigures).data())
-                               );
+    if(index >= 0 && index < m_figures.size())
+      return m_figures.at(index).data();
+
+    qDebug() << "AbstractFigure::figure: Index is not valid:" << index << m_figures.size();
+    return nullptr;
   }
 
   AbstractFigure *AbstractBoard::figure(uint32 x, uint32 y) const
@@ -101,14 +111,16 @@ namespace Stratogi {
     m_transformed.clear();
     m_moves.clear();
 
-    //std::copy(&tmp[0][0], &tmp[0][0] + sizeof(FiguresOnBoard) / sizeof(AbstractFigure*), &m_board[0][0]);
-
     // Clear possible Move Colors
     // NOTE: also Updates the Board so we do not need to cast update again
     clearColors();
 
-    // Reset all first Moves, that may have been mapped in the last Game
-    std::for_each(m_figures.begin(), m_figures.end(), [] (QSharedPointer<AbstractFigure> &abstractfigure){abstractfigure->firstMoveDone(false);});
+    std::for_each(m_figures.begin(), m_figures.end(), [] (QSharedPointer<AbstractFigure> &abstractfigure){
+        // Reset all first Moves, that may have been mapped in the last Game
+        abstractfigure->firstMoveDone(false);
+        // Reset Transformation
+        abstractfigure->transform(false);
+    });
   }
 
   void AbstractBoard::update()
@@ -166,7 +178,7 @@ namespace Stratogi {
     Q_UNUSED(index)
     Q_UNUSED(role)
 
-    return "This needs to be overriden by the Derived CLASS!";
+    return "AbstractBoard::data -> This needs to be overriden by the Derived CLASS!";
   }
 
   void AbstractBoard::markBlue(uint32 x, uint32 y)

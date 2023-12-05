@@ -16,6 +16,7 @@ namespace Chess {
       bool eventFilter(QObject *watched, QEvent *event) override;
 
       void loadEngine() override;
+      void unloadEngine() override;
       void calcNextEngineMove() override;
       bool engineIsMoveValid(QString move) override;
       void startNewGame() override;

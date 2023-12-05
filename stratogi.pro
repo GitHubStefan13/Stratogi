@@ -6,7 +6,6 @@ TEMPLATE = app
 CONFIG += c++11 static
 CONFIG += no_keywords # No Qt Keywords like Signals, emit ...
 DEFINES += QT_DEPRECATED_WARNINGS
-
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 # Set up main/install/setup directories for specfic Systems

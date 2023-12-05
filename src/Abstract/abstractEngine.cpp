@@ -442,9 +442,8 @@ namespace Stratogi {
 
   AbstractEngine::~AbstractEngine()
   {
-    // Stop the Engine if its still running
-    if(!m_engineStopped)
-      terminate();
+    if(AbstractEngine::isEngineProcessRunning())
+      AbstractEngine::terminate(true);
 
     // Write the Rest of the Log into the Logfile if needed
     m_engineLog.flush();
@@ -498,16 +497,17 @@ namespace Stratogi {
 
   QString Stratogi::AbstractEngine::getEngineOption(QString name)
   {
-
-
     return "";
   }
 
   bool AbstractEngine::isEngineProcessRunning()
   {
-      if(m_engineProcess != nullptr && m_engineProcess->isOpen())
-          return true;
-      return false;
+    if(m_engineProcess != nullptr &&
+       m_engineProcess->isOpen())
+    {
+      return true;
+    }
+    return false;
   }
 
   QStringList AbstractEngine::engineMoves()
@@ -576,7 +576,7 @@ namespace Stratogi {
         }
         //m_engineProcess->closeWriteChannel(); // Not needed if "\n is in the Command"
 
-        connect(m_engineProcess, &QProcess::bytesWritten, [this, aktCommand] {
+        connect(m_engineProcess.data(), &QProcess::bytesWritten, [this, aktCommand] {
           m_engineLog.write(QString("sendCommand: " + aktCommand + "\n").toLocal8Bit());
         });
       }
@@ -588,7 +588,7 @@ namespace Stratogi {
     m_engineStopped = true;
   }
 
-  int AbstractEngine::terminate()
+  void AbstractEngine::terminate(bool doExit)
   {
     m_stopEngine = true;
 
@@ -602,10 +602,8 @@ namespace Stratogi {
         break;
     }
 
-    int returnCode = 0;
-    exit(returnCode);
-
-    return returnCode;
+    if(doExit)
+      exit();
   }
 
   void AbstractEngine::onProcessReadyRead()

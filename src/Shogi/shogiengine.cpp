@@ -10,7 +10,6 @@ namespace Shogi {
 
   ShogiEngine::~ShogiEngine()
   {
-
   }
 
   bool ShogiEngine::event(QEvent *event)
@@ -45,12 +44,16 @@ namespace Shogi {
 #else
     programm = "/media/sf_Shared_Folder/Projects/Stratogi/thirdparty/binary";
 #endif
-    m_engineProcess = new QProcess();
-    m_engineProcess->setWorkingDirectory(dir);
-    connect(m_engineProcess, &QProcess::readyRead, this, &ShogiEngine::onProcessReadyRead);
+    // Might occur when the Engine failed to load and a Developer tries to reload the Engine
+    if(m_engineProcess.isNull())
+    {
+      m_engineProcess = QSharedPointer<QProcess>(new QProcess());
+      m_engineProcess->setWorkingDirectory(dir);
+      connect(m_engineProcess.data(), &QProcess::readyRead, this, &ShogiEngine::onProcessReadyRead);
 
-    m_engineProcess->setProgram(programm);
-    m_engineProcess->moveToThread(this);
+      m_engineProcess->setProgram(programm);
+      m_engineProcess->moveToThread(this);
+    }
 
     connect(this, &QThread::started, [this]
     {
@@ -58,12 +61,19 @@ namespace Shogi {
       if(!m_engineProcess->waitForStarted(5000))
       {
         QString error = m_engineProcess->errorString();
-        qDebug(error.toLocal8Bit());
+        Q_EMIT engineError(error, AbstractEngine::EngineErrorGrade::CRITICAL);
+
+        unloadEngine();
       }
 
       sendEngineCommand("usi");
     });
     start();
+  }
+
+  void ShogiEngine::unloadEngine()
+  {
+    terminate(false);
   }
 
   void ShogiEngine::calcNextEngineMove()

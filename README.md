@@ -18,7 +18,10 @@ To get started with Stratogi, follow these steps:
     git clone https://github.com/GitHubStefan13/stratogi.git
     ```
 
-2. QtCreator and any Version of Qt6.X.
+2. Install QtCreator and choose any Version of Qt6+ you want to use (tested with Qt6.5.0)
+
+3. Load either the CMakeLists.txt or the Stratogi.pro to open the Project
+   (Starting with Qt6, QMake will only be mainted for the time it takes to fully migrated to cmake)
 
 ## Contributing
 

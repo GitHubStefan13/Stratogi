@@ -1,6 +1,7 @@
-import QtQuick.Window 6
-import QtQuick 6
-import QtQuick.Controls 6
+import QtQuick.Window
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Dialogs
 import StratogiSignals 1.0
 
 Page {
@@ -84,6 +85,14 @@ Page {
         function onFinishedLoading() {
             shogiMain.width = (minWidth < 480) ? 480 : minWidth
             shogiMain.height = (minHeight < 720) ? 720 : minHeight
+        }
+
+        function onEngineError(error) {
+            engineErrorDialog.text = "Engine Error occurred, cannot continue game \n" + error;
+            engineErrorDialog.open();
+            engineErrorDialog.accepted.connect(function(){
+                stackView.pop();
+            })
         }
 
     }
@@ -219,6 +228,13 @@ Page {
             anchors.top: table_bot.bottom
         }
         anchors.fill: parent
+    }
+
+    MessageDialog {
+        id: engineErrorDialog
+        title: qsTr("Engine Error")
+        text: ""
+        buttons : MessageDialog.Ok
     }
 }
 

@@ -69,6 +69,8 @@ namespace Stratogi {
     virtual void undo() = 0;
     //! The Result we receive from the Engine
     virtual void onEngineResult(QString result) = 0;
+    //! We received an Error from the Engine
+    virtual void onEngineError(QString error, AbstractEngine::EngineErrorGrade errorGrade);
   Q_SIGNALS:
     //! CPU or Player gave up and surrendered
     void surrender();
@@ -137,7 +139,7 @@ namespace Stratogi {
     //! Is the Move made by the Engine? ONLY TRUE if m_useEngine is also set
     bool isEngineMove;
     //! The Thread of the Engine, that is running, NULL if no engine is running
-    AbstractEngine *m_engineThread = nullptr;
+    QSharedPointer<AbstractEngine> m_engineThread;
 
     //! Inverse coord using size,
     //! @example Size = 9, Move is 1 then the Inverse is 9

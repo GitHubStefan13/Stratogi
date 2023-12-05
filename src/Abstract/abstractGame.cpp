@@ -30,15 +30,15 @@ namespace Stratogi {
     {
       if(m_engineThread->isRunning())
       {
-        delete m_engineThread;
-        m_engineThread = nullptr;
+        m_engineThread->unloadEngine();
+        m_engineThread.clear();
       }
     }
   }
 
   AbstractEngine *AbstractGame::engineThread() const
   {
-      return m_engineThread;
+      return m_engineThread.data();
   }
 
   void AbstractGame::useEngine(bool useEngine)
@@ -765,13 +765,18 @@ namespace Stratogi {
   {
     if(m_useEngine)
     {
-      if(!m_engineThread->isEngineProcessRunning())
-        m_engineThread->loadEngine();
-      connect(m_engineThread, &AbstractEngine::engineResult, this, &AbstractGame::onEngineResult);
+      m_engineThread->loadEngine();
 
-      connect(m_engineThread->optionSettingModel(), &OptionSettingModel::optionChanged,
-              this, &AbstractGame::onEngineOptionChanged);
+      connect(m_engineThread.data(), &AbstractEngine::engineError, this, &AbstractGame::onEngineError);
+      connect(m_engineThread.data(), &AbstractEngine::engineResult, this, &AbstractGame::onEngineResult);
+      connect(m_engineThread->optionSettingModel(), &OptionSettingModel::optionChanged, this, &AbstractGame::onEngineOptionChanged);
     }
+  }
+
+  void AbstractGame::onEngineError(QString error, AbstractEngine::EngineErrorGrade errorGrade)
+  {
+    qDebug() << "EngineError occurred, cannot start the Engine!" << error << errorGrade;
+    Q_EMIT m_signals.engineError(error);
   }
 
 } // END NAMEPSACE "Stratogi"

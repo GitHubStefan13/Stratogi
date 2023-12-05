@@ -7,7 +7,7 @@ namespace Shogi {
 
   ShogiGame::ShogiGame(ShogiBoard &board, Signals &s) : AbstractGame (board, s), shogi_board(board)
   {
-    m_engineThread = new ShogiEngine();
+    m_engineThread = QSharedPointer<ShogiEngine>(new ShogiEngine());
     m_turns.append(shogi_board);
     m_engineColor = AbstractFigure::FigureColor::Black;
 
@@ -314,7 +314,11 @@ namespace Shogi {
       return;
     }
 
+  }
 
+  void ShogiGame::onEngineError(QString error, AbstractEngine::EngineErrorGrade errorGrade)
+  {
+    AbstractGame::onEngineError(error, errorGrade);
   }
 
   bool ShogiGame::checkCheck(bool checkmate)
@@ -338,9 +342,9 @@ namespace Shogi {
     AbstractBoard &tmpAbstractBoard = m_board;
 
     // For each figure.
-    for(int x = 0; x < m_board._rowSize; ++x)
+    for(uint x = 0; x < m_board._rowSize; ++x)
     {
-      for(int y = 0; y < m_board._columnSize; ++y)
+      for(uint y = 0; y < m_board._columnSize; ++y)
       {
         if(tmpAbstractBoard.figures()[y][x] && tmpAbstractBoard.figures()[y][x]->color() == m_turnColor)
         {
@@ -895,8 +899,9 @@ namespace Shogi {
             return KIFU_P_PAWN_ENG;
           return KIFU_PAWN_ENG;
         }
-
       }
+
+      return "";
     }
     else
     {
@@ -925,6 +930,8 @@ namespace Shogi {
       }
 
     }
+
+    return ""; // Unkown Movement Notation, so we will return an Empty String
   }
 
   QString ShogiGame::getPromotionNotation(uint32_t promotion_type)

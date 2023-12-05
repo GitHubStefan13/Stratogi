@@ -58,6 +58,8 @@ class Signals :	public QObject
     void noMoreUndo();
     //! Invalid Move.
     void invalidMove();
+    //! Error with the Engine
+    void engineError(QString error);
 
   public:
     Signals()

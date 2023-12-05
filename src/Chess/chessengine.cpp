@@ -12,7 +12,6 @@ namespace Chess {
 
   ChessEngine::~ChessEngine()
   {
-
   }
 
   bool ChessEngine::event(QEvent *event)
@@ -46,9 +45,9 @@ namespace Chess {
     dir = "C:\\Users\\Stefan\\Downloads\\";
     programm = dir + "stockfish.exe";
 #endif
-    m_engineProcess = new QProcess();
+    m_engineProcess = QSharedPointer<QProcess>( new QProcess());
     m_engineProcess->setWorkingDirectory(dir);
-    connect(m_engineProcess, &QProcess::readyRead, this, &ChessEngine::onProcessReadyRead);
+    connect(m_engineProcess.data(), &QProcess::readyRead, this, &ChessEngine::onProcessReadyRead);
 
     m_engineProcess->setProgram(programm);
     m_engineProcess->moveToThread(this);
@@ -60,11 +59,18 @@ namespace Chess {
       {
         QString error = m_engineProcess->errorString();
         qDebug(error.toLocal8Bit());
+
+        unloadEngine();
       }
 
       sendEngineCommand("uci");
     });
     start();
+  }
+
+  void ChessEngine::unloadEngine()
+  {
+
   }
 
   void ChessEngine::calcNextEngineMove()

@@ -7,7 +7,7 @@ namespace Chess {
 
   ChessGame::ChessGame(ChessBoard &board, Signals &s) : AbstractGame (board, s), chess_board(board)
   {
-    m_engineThread = new ChessEngine();
+    m_engineThread = QSharedPointer<ChessEngine>(new ChessEngine());
     m_engineColor = AbstractFigure::FigureColor::Black; //! @todo depends on the GAME
 
     m_turns.append(chess_board);
@@ -637,6 +637,11 @@ namespace Chess {
       qDebug() << "Engine received unkown Command:" + result;
     }
 
+  }
+
+  void ChessGame::onEngineError(QString error, AbstractEngine::EngineErrorGrade errorGrade)
+  {
+    AbstractGame::onEngineError(error, errorGrade);
   }
 
   COORD_NOTATION ChessGame::convertEngineMove(QString engineMove)

@@ -198,7 +198,12 @@ namespace Stratogi {
     AbstractEngine();
     virtual ~AbstractEngine();
 
-    //! Virtual Functions for the Engine, need to be implemented for the Subclasses
+    enum EngineErrorGrade {
+        WARNING,
+        CRITICAL
+    };
+
+    //! Virtual Functions for the Engine, needs to be implemented for the Subclasses
     //!
     //! @example The Engine will be loaded during Construction and calculate the next Move
     //!          after each Turn( IF TURNED ON ) the Engine will also be able to accept
@@ -208,6 +213,7 @@ namespace Stratogi {
     //! @note Chess uses UCI = Universal Chess Interface
     //!       Shogi uses USI = Universal Shogi Interface
     virtual void loadEngine() = 0;
+    virtual void unloadEngine() = 0;
     virtual void calcNextEngineMove() = 0;
     virtual bool engineIsMoveValid(QString move) = 0;
     virtual void setEngineOptions(QString name, QString value); //! @todo MIGHT BE DIFFERENT FOR ENGINES
@@ -231,6 +237,8 @@ namespace Stratogi {
     void engineResult(QString result);
     //! When the EngineMove List changed
     void engineMoveChanged(QStringList moveList);
+    //! Error occurred while using the Engine
+    void engineError(QString error, EngineErrorGrade errorGrade);
 
   protected Q_SLOTS:
     void onProcessReadyRead();
@@ -238,12 +246,12 @@ namespace Stratogi {
 
   protected:
     //! The Process of the Engine running inside the engineThread
-    QProcess *m_engineProcess = nullptr;
+    QSharedPointer<QProcess> m_engineProcess;
     //! Used to save the Moves for the Engine, since they might have a different Notation
     QStringList m_engineMoves;
 
     void run() override;
-    virtual int terminate();
+    virtual void terminate(bool doExit);
     //! Set the current Position from :m_engineMoves
     //! @note Mainly used to reset to a older Position by changing m_engineMoves
     virtual void setMovePosition();

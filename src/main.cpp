@@ -47,7 +47,7 @@ int main( int argc, char ** argv )
   else
     QQuickStyle::setStyle(settings.value("style").toString());
   QQmlApplicationEngine engine;
-  engine.rootContext()->setContextProperty("availableStyles", "Material, iOS, Test");
+  engine.rootContext()->setContextProperty("availableStyles", "Material, Universal, Windows");
 
   const QUrl url(QStringLiteral("qrc:/main.qml"));
   QObject::connect(&engine,

@@ -49,6 +49,7 @@ class ChessGame Q_DECL_FINAL : public AbstractGame
   public Q_SLOT:
     void newGame() override;
     void onEngineResult(QString result) override;
+    void onEngineError(QString error, AbstractEngine::EngineErrorGrade errorGrade) override;
 
   protected:
     COORD_NOTATION convertEngineMove(QString engineMove) override;
